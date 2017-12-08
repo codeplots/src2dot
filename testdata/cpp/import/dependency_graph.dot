@@ -1,0 +1,11 @@
+digraph G {
+    "main.cpp" -> "helper.h"
+    "main.cpp" -> "subdir/subhelper.h"
+    "main.cpp" -> "remoteheaders/remote.h"
+    "main.cpp" -> "iostream"
+    "main.cpp" -> "vector"
+    "helper.cc" -> "cstring"
+    "helper.cc" -> "helper.h"
+    "subdir/subhelper.h" -> "stdio.h"
+    "remoteheaders/remote.h" -> "iostream"
+}
