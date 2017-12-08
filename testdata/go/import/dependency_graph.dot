@@ -1,0 +1,13 @@
+digraph G {
+    "main.go" -> "fmt"
+    "main.go" -> "path"
+    "main.go" -> "sweets/twix.go"
+    "main.go" -> "sweets/snickers.go"
+    "main.go" -> "fruit/apple.go"
+    "main.go" -> "fruit/peach.go"
+    "sweets/twix.go" -> "log"
+    "fruit/apple.go" -> "fmt"
+    "fruit/apple.go" -> "strings"
+    "fruit/apple.go" -> "sweets/twix.go"
+    "fruit/apple.go" -> "sweets/snickers.go"
+}
