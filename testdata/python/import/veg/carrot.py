@@ -1,0 +1,3 @@
+import fruit
+
+print("Carrot")
