@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	db "github.com/codeplots/src2dot/database"
+        "github.com/codeplots/src2dot/graph"
 )
 
 func main() {
@@ -12,5 +13,6 @@ func main() {
 	// ctags --all-kinds=* --fields=* -R --extras=+frF .
 	myDb := db.FromCtags(opts.ctags)
 	myDb.AddCscope(opts.cscope)
-	fmt.Println(myDb)
+        g, _ := graph.DependencyGraph(myDb)
+        fmt.Println(g.ToDot())
 }
