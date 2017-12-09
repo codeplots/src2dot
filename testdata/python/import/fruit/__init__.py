@@ -1,2 +1,2 @@
 from . import apple
-import .peach
+import peach
