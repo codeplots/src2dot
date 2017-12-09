@@ -38,6 +38,34 @@ type Ref struct {
 	language LanguageType
 }
 
+func (r *Ref) Symbol() string {
+    return (*r).symbol
+}
+
+func (r *Ref) Filename() string {
+    return (*r).filename
+}
+
+func (r *Ref) Module() string {
+    return (*r).module
+}
+
+func (r *Ref) Dir() string {
+    return (*r).dir
+}
+
+func (r *Ref) LineNo() int {
+    return (*r).lineNo
+}
+
+func (r *Ref) LineSrc() string {
+    return (*r).lineSrc
+}
+
+func (r *Ref) Language() LanguageType {
+    return (*r).language
+}
+
 type FuncRef struct {
 	Ref
 	signature string
@@ -53,6 +81,10 @@ type FuncCallRef struct {
 type ImportRef struct {
 	Ref
 	type_ ImportType
+}
+
+func (r *ImportRef) Type() ImportType {
+    return (*r).type_
 }
 
 type ClassRef struct {
@@ -80,6 +112,18 @@ type File struct {
 	dir       string
 	language  LanguageType
 	lineCount int
+}
+func (f *File) Name() string {
+    return (*f).name
+}
+func (f *File) Dir() string {
+    return (*f).dir
+}
+func (f *File) Language() LanguageType {
+    return (*f).language
+}
+func (f *File) LineCount() int {
+    return (*f).lineCount
 }
 
 type Dir struct {
