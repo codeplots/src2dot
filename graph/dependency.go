@@ -21,6 +21,13 @@ func DependencyGraph(store db.Database) (Graph, error) {
         })
 
         files, _ := store.GetImportedFiles(ref)
+        if len(files) == 0 {
+            g.edges = append(g.edges, Edge{
+                sourceId: id,
+                targetId: ref.Symbol(),
+            })
+            continue
+        }
         for _, file := range files {
             fileId := path.Join(file.Dir(), file.Name())
             g.addNodeIfNotExist(Node{
