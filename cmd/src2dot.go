@@ -11,6 +11,8 @@ func main() {
 	opts := parseOptions()
 	fmt.Println("Options: ", opts)
 	// cscope -kbc
+        // pycscope -R
+        // starscope -e cscope
 	// ctags --all-kinds=* --fields=* -R --extras=+frF .
 	myDb := db.FromCtags(opts.ctags)
 	myDb.AddCscope(opts.cscope)
