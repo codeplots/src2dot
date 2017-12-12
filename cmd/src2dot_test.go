@@ -25,6 +25,9 @@ func TestDotting(t *testing.T) {
         testDb.AddCscope(path.Join(dir, "cscope.out"))
         files, _ := ioutil.ReadDir(dir)
         for _, f := range files {
+            if !strings.HasSuffix(f.Name(), ".dot") {
+                continue
+            }
             t.Run(dir, func(t *testing.T) {
                 var g graph.Graph
                 expected, _ := ioutil.ReadFile(path.Join(
@@ -39,8 +42,6 @@ func TestDotting(t *testing.T) {
                     fmt.Println("No support for class diagrams yet")
                 case strings.HasSuffix(n, ".dot"):
                     fmt.Printf("Warning: Could not recognize %s\n", n)
-                    t.Skip()
-                default:
                     t.Skip()
                 }
 

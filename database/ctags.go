@@ -107,7 +107,6 @@ func FromCtags(ctagsFile string) Database {
 
 		typeDummy, found := KIND_TAG_MAP[fields[KIND_TAG]]
 		if !found {
-			log.Print("Unsupported kind '", fields[KIND_TAG], "'")
 			continue
 		}
 		switch reflect.TypeOf(typeDummy) {
