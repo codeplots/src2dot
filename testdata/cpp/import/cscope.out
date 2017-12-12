@@ -1,0 +1,89 @@
+cscope 15 $HOME/go/src/github.com/codeplots/src2dot/testdata/cpp/import -c               0000000580
+	@helper.cc
+
+1 #include 
+	~"helper.h
+"
+
+2 #include 
+	~<cstring
+>
+
+4 void 
+	$help
+() {
+
+5 
+	}
+}
+
+	@helper.h
+
+1 void 
+help
+();
+
+	@main.cpp
+
+1 #include 
+	~"helper.h
+"
+
+2 #include 
+	~"subdir/subhelper.h
+"
+
+3 #include
+	~"remote.h
+"
+
+5 #include 
+	~<iostream
+>
+
+6 #include
+	~<vector
+>
+
+8 int 
+	$main
+() {
+
+9 
+std
+::
+cout
+ << "main" << std::
+endl
+;
+
+10 
+	}
+}
+
+	@remoteheaders/remote.h
+
+1 #include 
+	~<iostream
+>
+
+	@subdir/subhelper.cxx
+
+	@subdir/subhelper.h
+
+1 #include 
+	~<stdio.h
+>
+
+	@
+1
+.
+0
+6
+91
+helper.cc
+helper.h
+main.cpp
+remoteheaders/remote.h
+subdir/subhelper.cxx
+subdir/subhelper.h

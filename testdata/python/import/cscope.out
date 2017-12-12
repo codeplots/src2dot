@@ -1,0 +1,135 @@
+cscope 15 /Users/julianvossen/go/src/github.com/codeplots/src2dot/testdata/python/import -c 0000000897
+	@./fruit/__init__.py
+
+1 from . import 
+apple
+
+2 import 
+	~peach
+
+
+	@./fruit/apple.py
+
+
+	@./fruit/peach.py
+
+
+	@./main.py
+
+1 import 
+	~os
+ , 
+	~glob
+
+3 from 
+	~subprocess
+ import 
+PIPE
+
+5 import 
+	~matplotlib.pyplot
+ as 
+plt
+
+6 import 
+	~numpy
+ as 
+np
+
+8 from 
+	~parser
+ import 
+ParserError
+ as 
+Err
+
+10 import 
+	~twin
+
+12 import 
+	~fruit
+
+14 import 
+	~sweets.twix
+
+16 from 
+	~sweets.snickers
+ import 
+Snickers
+
+18 from 
+	~veg.carrot
+ import *
+
+19 from 
+	~veg
+ import 
+spinach
+
+
+	@./sweets/__init__.py
+
+
+	@./sweets/bounty.py
+
+
+	@./sweets/snickers.py
+
+1 import 
+	~os
+
+2 import 
+	~json
+
+6 class 
+	cSnickers
+ :
+
+7 
+	=taste
+ = "yummy"
+
+
+	@./sweets/twix.py
+
+
+	@./twin.py
+
+
+	@./veg/__init__.py
+
+
+	@./veg/carrot.py
+
+1 import 
+	~fruit
+
+
+	@./veg/pea.py
+
+
+	@./veg/spinach.py
+
+1 import 
+	~sweets.twix
+
+
+	@
+1
+.
+0
+13
+216
+./fruit/__init__.py
+./fruit/apple.py
+./fruit/peach.py
+./main.py
+./sweets/__init__.py
+./sweets/bounty.py
+./sweets/snickers.py
+./sweets/twix.py
+./twin.py
+./veg/__init__.py
+./veg/carrot.py
+./veg/pea.py
+./veg/spinach.py

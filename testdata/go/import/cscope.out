@@ -1,0 +1,205 @@
+cscope 15 /Users/julianvossen/go/src/github.com/codeplots/src2dot/testdata/go/import -c 0000001012
+	@fruit/apple.go
+
+0  
+	$-
+
+1 package 
+	gfruit
+ 
+
+4 "
+	~<fmt
+"
+
+5 "
+	~<strings
+"
+
+6 "
+github.com
+/
+codeplots
+/
+src2dot
+/
+testdata
+/
+go
+/
+import
+/
+	~<sweets
+"
+
+9  
+	}
+func 
+	$Print
+() {
+
+10  
+fmt
+.
+	`Println
+(
+strings
+.
+	`TrimPrefix
+("Apple", ""))
+
+11  
+sweets
+.
+	`Log
+()
+
+12  
+	}}
+ 
+	$-
+ 
+
+	@fruit/peach.go
+
+0  
+	$-
+
+1 package 
+	gfruit
+ 
+
+	@main.go
+
+0  
+	$-
+
+1 package 
+	gmain
+ 
+
+4 "
+	~<fmt
+"
+
+5 "
+github.com
+/
+codeplots
+/
+src2dot
+/
+testdata
+/
+go
+/
+import
+/
+	~<sweets
+"
+
+6 f "
+github.com
+/
+codeplots
+/
+src2dot
+/
+testdata
+/
+go
+/
+import
+/
+	~<fruit
+"
+
+9 import "
+	~<path
+"
+
+11  
+	}
+func 
+	$main
+() {
+
+12  
+fmt
+.
+	`Println
+(
+path
+.
+	`Join
+(".", "import"))
+
+13  
+sweets
+.
+	`Log
+()
+
+14  
+f
+.
+	`Print
+()
+
+15  
+	}}
+ 
+	$-
+ 
+
+	@sweets/snickers.go
+
+0  
+	$-
+
+1 package 
+	gsweets
+ 
+
+	@sweets/twix.go
+
+0  
+	$-
+
+1 package 
+	gsweets
+ 
+
+3 import "
+	~<log
+"
+
+5  
+	}
+func 
+	$Log
+() {
+
+6  
+log
+.
+	`Print
+("Twix")
+
+7  
+	}}
+ 
+	$-
+ 
+
+	@
+1
+**/*
+0
+5
+72
+fruit/apple.go
+fruit/peach.go
+main.go
+sweets/snickers.go
+sweets/twix.go

@@ -1,0 +1,48 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/d9d7aa7/
+.	fruit/__init__.py	/^from . import apple$/;"	kind:module	line:1	language:Python	role:namespace	extras:reference
+Err	main.py	/^from parser import ParserError as Err$/;"	kind:unknown	line:8	language:Python	access:public
+PIPE	main.py	/^from subprocess import PIPE$/;"	kind:unknown	line:3	language:Python	role:imported	extras:reference
+ParserError	main.py	/^from parser import ParserError as Err$/;"	kind:unknown	line:8	language:Python	role:indirectly-imported	extras:reference
+Snickers	main.py	/^from sweets.snickers import Snickers$/;"	kind:unknown	line:16	language:Python	role:imported	extras:reference
+Snickers	sweets/snickers.py	/^class Snickers:$/;"	kind:class	line:6	language:Python	inherits:	access:public	end:7
+__init__.py	fruit/__init__.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:2
+__init__.py	sweets/__init__.py	1;"	kind:file	line:1	language:Python	extras:inputFile
+__init__.py	veg/__init__.py	1;"	kind:file	line:1	language:Python	extras:inputFile
+apple	fruit/__init__.py	/^from . import apple$/;"	kind:unknown	line:1	language:Python	role:imported	extras:reference
+apple.py	fruit/apple.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:1
+bounty.py	sweets/bounty.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:1
+carrot.py	veg/carrot.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:3
+fruit	main.py	/^import fruit$/;"	kind:module	line:12	language:Python	role:imported	extras:reference
+fruit	veg/carrot.py	/^import fruit$/;"	kind:module	line:1	language:Python	role:imported	extras:reference
+glob	main.py	/^import os, glob$/;"	kind:module	line:1	language:Python	role:imported	extras:reference
+json	sweets/snickers.py	/^import json$/;"	kind:module	line:2	language:Python	role:imported	extras:reference
+main.py	main.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:19
+matplotlib.pyplot	main.py	/^import matplotlib.pyplot as plt$/;"	kind:module	line:5	language:Python	role:indirectly-imported	extras:reference
+np	main.py	/^import numpy as np$/;"	kind:namespace	line:6	language:Python	access:public
+numpy	main.py	/^import numpy as np$/;"	kind:module	line:6	language:Python	role:indirectly-imported	extras:reference
+os	main.py	/^import os, glob$/;"	kind:module	line:1	language:Python	role:imported	extras:reference
+os	sweets/snickers.py	/^import os$/;"	kind:module	line:1	language:Python	role:imported	extras:reference
+parser	main.py	/^from parser import ParserError as Err$/;"	kind:module	line:8	language:Python	role:namespace	extras:reference
+pea.py	veg/pea.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:1
+peach	fruit/__init__.py	/^import peach$/;"	kind:module	line:2	language:Python	role:imported	extras:reference
+peach.py	fruit/peach.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:1
+plt	main.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:5	language:Python	access:public
+snickers.py	sweets/snickers.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:7
+spinach	main.py	/^from veg import spinach$/;"	kind:unknown	line:19	language:Python	role:imported	extras:reference
+spinach.py	veg/spinach.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:3
+subprocess	main.py	/^from subprocess import PIPE$/;"	kind:module	line:3	language:Python	role:namespace	extras:reference
+sweets.snickers	main.py	/^from sweets.snickers import Snickers$/;"	kind:module	line:16	language:Python	role:namespace	extras:reference
+sweets.twix	main.py	/^import sweets.twix$/;"	kind:module	line:14	language:Python	role:imported	extras:reference
+sweets.twix	veg/spinach.py	/^import sweets.twix$/;"	kind:module	line:1	language:Python	role:imported	extras:reference
+taste	sweets/snickers.py	/^    taste = "yummy"$/;"	kind:variable	line:7	language:Python	scope:class:Snickers	access:public
+twin	main.py	/^import twin$/;"	kind:module	line:10	language:Python	role:imported	extras:reference
+twin.py	twin.py	1;"	kind:file	line:1	language:Python	extras:inputFile
+twix.py	sweets/twix.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:1
+veg	main.py	/^from veg import spinach$/;"	kind:module	line:19	language:Python	role:namespace	extras:reference
+veg.carrot	main.py	/^from veg.carrot import *$/;"	kind:module	line:18	language:Python	role:namespace	extras:reference

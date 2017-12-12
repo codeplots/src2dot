@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/d9d7aa7/
+Log	sweets/twix.go	/^func Log() {$/;"	kind:func	line:5	language:Go	signature:()
+Print	fruit/apple.go	/^func Print() {$/;"	kind:func	line:9	language:Go	signature:()
+apple.go	fruit/apple.go	1;"	kind:file	line:1	language:Go	extras:inputFile	end:12
+fruit	fruit/apple.go	/^package fruit$/;"	kind:package	line:1	language:Go
+fruit	fruit/peach.go	/^package fruit$/;"	kind:package	line:1	language:Go
+main	main.go	/^func main() {$/;"	kind:func	line:11	language:Go	signature:()
+main	main.go	/^package main$/;"	kind:package	line:1	language:Go
+main.go	main.go	1;"	kind:file	line:1	language:Go	extras:inputFile	end:15
+peach.go	fruit/peach.go	1;"	kind:file	line:1	language:Go	extras:inputFile	end:1
+snickers.go	sweets/snickers.go	1;"	kind:file	line:1	language:Go	extras:inputFile	end:1
+sweets	sweets/snickers.go	/^package sweets$/;"	kind:package	line:1	language:Go
+sweets	sweets/twix.go	/^package sweets$/;"	kind:package	line:1	language:Go
+twix.go	sweets/twix.go	1;"	kind:file	line:1	language:Go	extras:inputFile	end:7

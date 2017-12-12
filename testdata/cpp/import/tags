@@ -1,0 +1,27 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/d9d7aa7/
+Makefile	Makefile	1;"	kind:file	line:1	language:Make	extras:inputFile	end:2
+cstring	helper.cc	/^#include <cstring>/;"	kind:header	line:2	language:C++	role:system	extras:reference
+help	helper.cc	/^void help() {$/;"	kind:function	line:4	language:C++	typeref:typename:void	signature:()	end:5
+help	helper.h	/^void help();$/;"	kind:prototype	line:1	language:C++	typeref:typename:void	signature:()
+helper.cc	helper.cc	1;"	kind:file	line:1	language:C++	extras:inputFile	end:5
+helper.h	helper.cc	/^#include "helper.h"/;"	kind:header	line:1	language:C++	role:local	extras:reference
+helper.h	helper.h	1;"	kind:file	line:1	language:C++	extras:inputFile	end:1
+helper.h	main.cpp	/^#include "helper.h"/;"	kind:header	line:1	language:C++	role:local	extras:reference
+import	Makefile	/^import: *$/;"	kind:target	line:1	language:Make
+iostream	main.cpp	/^#include <iostream>/;"	kind:header	line:5	language:C++	role:system	extras:reference
+iostream	remoteheaders/remote.h	/^#include <iostream>/;"	kind:header	line:1	language:C++	role:system	extras:reference
+main	main.cpp	/^int main() {$/;"	kind:function	line:8	language:C++	typeref:typename:int	signature:()	end:10
+main.cpp	main.cpp	1;"	kind:file	line:1	language:C++	extras:inputFile	end:10
+remote.h	main.cpp	/^#include"remote.h"/;"	kind:header	line:3	language:C++	role:local	extras:reference
+remote.h	remoteheaders/remote.h	1;"	kind:file	line:1	language:C++	extras:inputFile	end:1
+stdio.h	subdir/subhelper.h	/^#include <stdio.h>/;"	kind:header	line:1	language:C++	role:system	extras:reference
+subdir/subhelper.h	main.cpp	/^#include "subdir\/subhelper.h"/;"	kind:header	line:2	language:C++	role:local	extras:reference
+subhelper.cxx	subdir/subhelper.cxx	1;"	kind:file	line:1	language:C++	extras:inputFile
+subhelper.h	subdir/subhelper.h	1;"	kind:file	line:1	language:C++	extras:inputFile	end:1
+vector	main.cpp	/^#include<vector>/;"	kind:header	line:6	language:C++	role:system	extras:reference
