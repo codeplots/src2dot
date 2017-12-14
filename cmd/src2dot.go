@@ -9,7 +9,6 @@ import (
 
 func main() {
 	opts := parseOptions()
-	fmt.Println("Options: ", opts)
 	// cscope -kbc
         // pycscope -R
         // starscope -e cscope
@@ -30,9 +29,9 @@ type Options struct {
 func parseOptions() Options {
 	opts := Options{}
 	flag.StringVar(&opts.ctags, "ctags", "./tags",
-		"path to tags file")
+		"path to ctags output file")
 	flag.StringVar(&opts.cscope, "cscope", "./cscope.out",
-		"path to cscope.out file")
+		"path to cscope output file")
 	flag.StringVar(&opts.o, "o", "-",
 		"output file (- for stdout)")
 	flag.BoolVar(&opts.raw, "raw", false,

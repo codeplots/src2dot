@@ -67,7 +67,6 @@ func formatSysImport(ref db.ImportRef) (string, bool){
 
 func formatPythonSysImport(ref db.ImportRef) (string, bool) {
     r := regexp.MustCompile(`(?:from\s+(\S+)\s)?\s*import\s+((?:\S+\s*)(?:,\s*\S+)*)(?:\sas.*)?$`)
-    //r := regexp.MustCompile(`(?:from\s+(\S+)\s)?\s*import\s+((?:\S+)(?:,\s+\S+)*)`)
     matches := r.FindStringSubmatch(ref.LineSrc())
     if len(matches) != 3 {
         return ref.Symbol(), true
