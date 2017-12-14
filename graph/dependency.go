@@ -2,6 +2,8 @@ package graph
 
 import (
     "path"
+    "strings"
+    "regexp"
     db "github.com/codeplots/src2dot/database"
 )
 
@@ -13,6 +15,9 @@ func DependencyGraph(store db.Database) (Graph, error) {
     }
 
     for _, ref := range store.GetImports() {
+        if ref.Module() == "__init__" {
+            continue
+        }
         id := path.Join(ref.Dir(), ref.Filename())
         g.addNodeIfNotExist(Node{
             id: id,
@@ -22,10 +27,13 @@ func DependencyGraph(store db.Database) (Graph, error) {
 
         files, _ := store.GetImportedFiles(ref)
         if len(files) == 0 {
-            g.edges = append(g.edges, Edge{
-                sourceId: id,
-                targetId: ref.Symbol(),
-            })
+            target, isImported := formatSysImport(ref)
+            if isImported {
+                g.addEdgeIfNotExist(Edge{
+                    sourceId: id,
+                    targetId: target,
+                })
+            }
             continue
         }
         for _, file := range files {
@@ -35,7 +43,7 @@ func DependencyGraph(store db.Database) (Graph, error) {
                 label: file.Name(),
                 parentId: file.Dir(),
             })
-            g.edges = append(g.edges, Edge{
+            g.addEdgeIfNotExist(Edge{
                 sourceId: id,
                 targetId: fileId,
             })
@@ -43,3 +51,34 @@ func DependencyGraph(store db.Database) (Graph, error) {
     }
     return g, nil
 }
+
+func formatSysImport(ref db.ImportRef) (string, bool){
+    format := ""
+    switch ref.Language() {
+    case db.CPP:
+        return ref.Symbol(), true
+    case db.GO:
+        return ref.Symbol(), true
+    case db.PYTHON:
+        return formatPythonSysImport(ref)
+    }
+    return format, false
+}
+
+func formatPythonSysImport(ref db.ImportRef) (string, bool) {
+    r := regexp.MustCompile(`(?:from\s+(\S+)\s)?\s*import\s+((?:\S+\s*)(?:,\s*\S+)*)(?:\sas.*)?$`)
+    //r := regexp.MustCompile(`(?:from\s+(\S+)\s)?\s*import\s+((?:\S+)(?:,\s+\S+)*)`)
+    matches := r.FindStringSubmatch(ref.LineSrc())
+    if len(matches) != 3 {
+        return ref.Symbol(), true
+    }
+    if !strings.Contains(matches[2], ref.Symbol()) {
+        return "", false
+    }
+    res := ref.Symbol()
+    if matches[1] != "" {
+        res = matches[1] + "." + res
+    }
+    return res, true
+}
+

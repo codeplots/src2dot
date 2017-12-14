@@ -6,6 +6,8 @@ func (db *Database) GetImportedFiles(ref ImportRef) ([]File, error) {
             return (*db).getCppImportedFiles(ref)
         case GO:
             return (*db).getGoImportedFiles(ref)
+        case PYTHON:
+            return (*db).getPythonImportedFiles(ref)
         }
 	return []File{}, nil
 }
