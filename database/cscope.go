@@ -1,6 +1,7 @@
 package database
 
 import (
+    "fmt"
 	"io/ioutil"
 	"log"
 	"path"
@@ -67,7 +68,22 @@ func (db *Database) AddCscope(cscopeFile string) {
 				Ref:   ref,
 				type_: type_,
 			}
-			(*db).imports = append((*db).imports, importRef)
+
+                        // add the import reference only, if there is none with
+                        // the same (dir, filename, lineNo, symbol) in the
+                        // database
+                        _, found := (*db).imports[fmt.Sprintf( "%s:%i:%s",
+                            path.Join(dir, filename),
+                            lineNo,
+                            symbol)]
+
+                            if !found {
+                                (*db).imports[fmt.Sprintf( "%s:%i:%s",
+                                path.Join(dir, filename),
+                                lineNo,
+                                symbol)] = importRef
+                            }
+
 		case strings.HasPrefix(line, FUNC_CALL_PREFIX):
 			ref := Ref{
 				symbol: strings.TrimPrefix(

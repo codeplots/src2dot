@@ -134,7 +134,7 @@ type Dir struct {
 type Database struct {
 	functions []FuncRef
 	funcCalls []FuncCallRef
-	imports   []ImportRef
+	imports   map[string]ImportRef
 	files     map[string]File
 	dirs      []Dir
 	classes   []ClassRef
