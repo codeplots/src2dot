@@ -1,6 +1,7 @@
 package database
 
 import (
+    "fmt"
 	"io/ioutil"
 	"log"
 	"path"
@@ -18,6 +19,9 @@ const (
 	ACCESS_TAG    string = "access"
 	TYPEREF_TAG   string = "typeref"
 	KIND_TAG      string = "kind"
+        REFERENCE_TAG string = "reference"
+        EXTRAS_TAG     string = "extras"
+        ROLE_TAG        string = "role"
 )
 
 // pseudo constant mapping between ctags language literals and LanguageType
@@ -45,6 +49,11 @@ var ACCESS_TAG_MAP = map[string]AccessType{
 	"public":    PUBLIC,
 }
 
+var REFERENCE_TAG_MAP = map[string]ImportType{
+	"local":   LOCAL,
+        "system":  SYSTEM,
+}
+
 func getAccessType(tag string) AccessType {
 	access, found := ACCESS_TAG_MAP[tag]
 	if found {
@@ -70,6 +79,7 @@ func FromCtags(ctagsFile string) Database {
 
 	db := Database{}
 	db.files = make(map[string]File)
+	db.imports = make(map[string]ImportRef)
 	for _, line := range tagLines {
 		// Split line into [symbol filename rest]
 		cols := strings.SplitN(line, "\t", 3)
@@ -104,6 +114,24 @@ func FromCtags(ctagsFile string) Database {
 
 		ref.lineNo, _ = strconv.Atoi(fields[LINE_TAG])
 		ref.language = getLanguageType(fields[LANGUAGE_TAG])
+
+                extras, found := fields[EXTRAS_TAG]
+                if found && extras == REFERENCE_TAG {
+                    importType, found := REFERENCE_TAG_MAP[fields[ROLE_TAG]]
+                    if !found {
+                        importType = UNKNOWN_IMPORT
+                    }
+                    importRef := ImportRef{
+                        Ref:       ref,
+                        type_: importType,
+                    }
+                    db.imports[fmt.Sprintf(
+                        "%s:%i:%s",
+                        path.Join(ref.dir, ref.filename),
+                        ref.lineNo,
+                        ref.symbol)] = importRef
+                    continue
+                }
 
 		typeDummy, found := KIND_TAG_MAP[fields[KIND_TAG]]
 		if !found {
