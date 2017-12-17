@@ -66,6 +66,13 @@ func (r *Ref) Language() LanguageType {
     return (*r).language
 }
 
+func (r *FuncRef) Signature() string {
+    return (*r).signature
+}
+func (r *FuncRef) Typeref() string {
+    return (*r).typeref
+}
+
 type FuncRef struct {
 	Ref
 	signature string
@@ -89,6 +96,10 @@ func (r *ImportRef) Type() ImportType {
 
 type ClassRef struct {
 	Ref
+        inherits        string
+}
+func (r *MemberRef) Typeref() string {
+    return (*r).typeref
 }
 
 type MemberRef struct {

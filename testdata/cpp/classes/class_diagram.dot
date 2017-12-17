@@ -1,0 +1,11 @@
+digraph {
+	rankdir="BT"
+	node [shape="record"]
+
+	"Apple" [label="{Apple|colour : int\l|}"]
+	"AppleTree" [label="{AppleTree|apples : Apple *\lnb_apples : int\l|addApple() : void\l}"]
+	"Tree" [label="{Tree|age : int\l|getAge() const : int\l}"]
+
+	"AppleTree" -> "Tree"
+	"Apple" -> "AppleTree" [arrowhead="ediamond"]
+}

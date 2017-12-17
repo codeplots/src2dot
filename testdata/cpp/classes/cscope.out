@@ -1,0 +1,219 @@
+cscope 15 $HOME/go/src/github.com/codeplots/src2dot/testdata/cpp/classes -c               0000001146
+	@Apple.h
+
+1 #ifndef 
+APPLE_H
+
+
+2 #define 
+	#APPLE_H
+
+
+	)
+
+4 class 
+	cApple
+ {
+
+5 
+	mpublic
+:
+
+6 int 
+colour
+;
+
+	@AppleTree.cpp
+
+1 #include 
+	~"AppleTree.h
+"
+
+3 void 
+	gAppleTree
+::
+	$addApple
+() {
+
+4 
+nb_apples
+++;
+
+5 
+	}
+}
+
+	@AppleTree.h
+
+1 #ifndef 
+APPLETREE_H
+
+
+2 #define 
+	#APPLETREE_H
+
+
+	)
+
+4 #include 
+	~"Tree.h
+"
+
+6 
+class
+ 
+	gApple
+;
+
+8 class 
+	cAppleTree
+ : 
+public
+ 
+Tree
+ {
+
+9 
+protected
+:
+
+10 int 
+nb_apples
+;
+
+11 
+Apple
+* 
+	mapples
+;
+
+12 
+	mpublic
+:
+
+13 void 
+addApple
+();
+
+	@Tree.cpp
+
+1 #include 
+	~"Tree.h
+"
+
+3 int 
+	gTree
+::
+	$getAge
+() const {
+
+4 return 
+age
+;
+
+5 
+	}
+}
+
+	@Tree.h
+
+1 #ifndef 
+TREE_H
+
+
+2 #define 
+	#TREE_H
+
+
+	)
+
+4 class 
+	cTree
+ {
+
+5 
+	mprotected
+:
+
+6 int 
+age
+;
+
+7 
+	mpublic
+:
+
+8 int 
+	$getAge
+() const;
+
+	@main.cpp
+
+1 #include 
+	~"Tree.h
+"
+
+2 #include 
+	~"AppleTree.h
+"
+
+3 #include 
+	~<iostream
+>
+
+5 
+using
+ 
+namespace
+ 
+	gstd
+;
+
+7 int 
+	$main
+() {
+
+8 
+Tree
+ 
+some_tree
+;
+
+9 
+AppleTree
+* 
+apple_tree
+ = 
+new
+ 
+	`AppleTree
+();
+
+11 
+cout
+ << "Hello from main" << 
+endl
+;
+
+12 
+delete
+ 
+apple_tree
+;
+
+13 
+	}
+}
+
+	@
+1
+.
+0
+6
+59
+Apple.h
+AppleTree.cpp
+AppleTree.h
+Tree.cpp
+Tree.h
+main.cpp

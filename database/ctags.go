@@ -22,6 +22,8 @@ const (
         REFERENCE_TAG string = "reference"
         EXTRAS_TAG     string = "extras"
         ROLE_TAG        string = "role"
+        INHERITS_TAG    string = "inherits"
+        TYPENAME_PREFIX    string = "typename:"
 )
 
 // pseudo constant mapping between ctags language literals and LanguageType
@@ -76,7 +78,6 @@ func FromCtags(ctagsFile string) Database {
 		log.Fatal(err)
 	}
 	tagLines := strings.Split(string(tags), "\n")
-
 	db := Database{}
 	db.files = make(map[string]File)
 	db.imports = make(map[string]ImportRef)
@@ -143,7 +144,8 @@ func FromCtags(ctagsFile string) Database {
 				Ref:       ref,
 				signature: fields[SIGNATURE_TAG],
 				scope:     fields[SCOPE_TAG],
-				typeref:   fields[TYPEREF_TAG],
+				typeref:   strings.TrimPrefix(fields[TYPEREF_TAG], 
+                                            TYPENAME_PREFIX),
 			}
 			funcRef.end, _ = strconv.Atoi(fields[END_TAG])
 			db.functions = append(db.functions, funcRef)
@@ -151,13 +153,16 @@ func FromCtags(ctagsFile string) Database {
 			memberRef := MemberRef{
 				Ref:     ref,
 				scope:   fields[SCOPE_TAG],
-				typeref: fields[TYPEREF_TAG],
+				typeref:   strings.TrimPrefix(fields[TYPEREF_TAG], 
+                                            TYPENAME_PREFIX),
 				access:  getAccessType(fields[ACCESS_TAG]),
 			}
 			db.members = append(db.members, memberRef)
 		case reflect.TypeOf(ClassRef{}):
+                        parent, _ := fields[INHERITS_TAG]
 			classRef := ClassRef{
 				Ref: ref,
+                                inherits: parent,
 			}
 			db.classes = append(db.classes, classRef)
 		case reflect.TypeOf(File{}):

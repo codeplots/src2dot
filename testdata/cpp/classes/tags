@@ -1,0 +1,37 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/d9d7aa7/
+APPLETREE_H	AppleTree.h	/^#define APPLETREE_H$/;"	kind:macro	line:2	language:C++	end:2
+APPLE_H	Apple.h	/^#define APPLE_H$/;"	kind:macro	line:2	language:C++	end:2
+Apple	Apple.h	/^class Apple {$/;"	kind:class	line:4	language:C++	end:7
+Apple.h	Apple.h	1;"	kind:file	line:1	language:C++	extras:inputFile	end:8
+AppleTree	AppleTree.h	/^class AppleTree : public Tree {$/;"	kind:class	line:8	language:C++	inherits:Tree	end:14
+AppleTree.cpp	AppleTree.cpp	1;"	kind:file	line:1	language:C++	extras:inputFile	end:5
+AppleTree.h	AppleTree.cpp	/^#include "AppleTree.h"/;"	kind:header	line:1	language:C++	role:local	extras:reference
+AppleTree.h	AppleTree.h	1;"	kind:file	line:1	language:C++	extras:inputFile	end:16
+AppleTree.h	main.cpp	/^#include "AppleTree.h"/;"	kind:header	line:2	language:C++	role:local	extras:reference
+TREE_H	Tree.h	/^#define TREE_H$/;"	kind:macro	line:2	language:C++	end:2
+Tree	Tree.h	/^class Tree {$/;"	kind:class	line:4	language:C++	end:9
+Tree.cpp	Tree.cpp	1;"	kind:file	line:1	language:C++	extras:inputFile	end:5
+Tree.h	AppleTree.h	/^#include "Tree.h"/;"	kind:header	line:4	language:C++	role:local	extras:reference
+Tree.h	Tree.cpp	/^#include "Tree.h"/;"	kind:header	line:1	language:C++	role:local	extras:reference
+Tree.h	Tree.h	1;"	kind:file	line:1	language:C++	extras:inputFile	end:11
+Tree.h	main.cpp	/^#include "Tree.h"/;"	kind:header	line:1	language:C++	role:local	extras:reference
+addApple	AppleTree.cpp	/^void AppleTree::addApple() {$/;"	kind:function	line:3	language:C++	scope:class:AppleTree	typeref:typename:void	signature:()	end:5
+addApple	AppleTree.h	/^   void addApple(); $/;"	kind:prototype	line:13	language:C++	scope:class:AppleTree	typeref:typename:void	access:public	signature:()
+age	Tree.h	/^    int age;$/;"	kind:member	line:6	language:C++	scope:class:Tree	typeref:typename:int	access:protected
+apple_tree	main.cpp	/^    AppleTree* apple_tree = new AppleTree();$/;"	kind:local	line:9	language:C++	scope:function:main	typeref:typename:AppleTree *	file:	extras:fileScope
+apples	AppleTree.h	/^    Apple* apples;$/;"	kind:member	line:11	language:C++	scope:class:AppleTree	typeref:typename:Apple *	access:protected
+colour	Apple.h	/^    int colour;$/;"	kind:member	line:6	language:C++	scope:class:Apple	typeref:typename:int	access:public
+getAge	Tree.cpp	/^int Tree::getAge() const {$/;"	kind:function	line:3	language:C++	scope:class:Tree	typeref:typename:int	signature:() const	end:5
+getAge	Tree.h	/^    int getAge() const;$/;"	kind:prototype	line:8	language:C++	scope:class:Tree	typeref:typename:int	access:public	signature:() const
+iostream	main.cpp	/^#include <iostream>/;"	kind:header	line:3	language:C++	role:system	extras:reference
+main	main.cpp	/^int main() {$/;"	kind:function	line:7	language:C++	typeref:typename:int	signature:()	end:13
+main.cpp	main.cpp	1;"	kind:file	line:1	language:C++	extras:inputFile	end:14
+nb_apples	AppleTree.h	/^    int nb_apples;$/;"	kind:member	line:10	language:C++	scope:class:AppleTree	typeref:typename:int	access:protected
+some_tree	main.cpp	/^    Tree some_tree;$/;"	kind:local	line:8	language:C++	scope:function:main	typeref:typename:Tree	file:	extras:fileScope
+std	main.cpp	/^using namespace std;$/;"	kind:using	line:5	language:C++	file:	extras:fileScope
