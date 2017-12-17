@@ -11,6 +11,7 @@ func DependencyGraph(store db.Database) (Graph, error) {
     g := Graph {
         nodes: []Node{},
         edges: []Edge{},
+        kind:   DEPENDENCY_GRAPH,
     }
 
     for _, ref := range store.GetImports() {

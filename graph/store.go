@@ -20,9 +20,17 @@ type Edge struct {
     style       EdgeStyle
 }
 
+type GraphType string
+const (
+    DEPENDENCY_GRAPH    GraphType = "dependency_graph"
+    CLASS_DIAGRAM       GraphType = "class_diagram"
+    CALL_GRAPH          GraphType = "call_graph"
+)
+
 type Graph struct {
     nodes       []Node
     edges       []Edge
+    kind        GraphType
 }
 
 func (g *Graph) GetNode(id string) (Node, bool) {

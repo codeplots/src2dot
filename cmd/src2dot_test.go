@@ -30,16 +30,19 @@ func TestDotting(t *testing.T) {
             }
             t.Run(dir, func(t *testing.T) {
                 var g graph.Graph
-                expected, _ := ioutil.ReadFile(path.Join(
-                    dir, DEP_GRAPH_FILENAME))
+                var expected []byte
 
                 switch n := f.Name(); {
                 case n == DEP_GRAPH_FILENAME:
                     g, _ = graph.DependencyGraph(testDb)
+                    expected, _ = ioutil.ReadFile(path.Join(
+                    dir, DEP_GRAPH_FILENAME))
                 case n == CALL_GRAPH_FILENAME:
                     fmt.Println("No support for call graphs yet")
                 case n == CLASS_DIAG_FILENAME:
-                    fmt.Println("No support for class diagrams yet")
+                    g, _ = graph.ClassDiagram(testDb)
+                    expected, _ = ioutil.ReadFile(path.Join(
+                    dir, CLASS_DIAG_FILENAME))
                 case strings.HasSuffix(n, ".dot"):
                     fmt.Printf("Warning: Could not recognize %s\n", n)
                     t.Skip()
