@@ -1,4 +1,13 @@
 digraph G {
+    "veg/spinach.py" [label="veg/spinach.py"]
+    "sweets/twix.py" [label="sweets/twix.py"]
+    "main.py" [label="main.py"]
+    "twin.py" [label="twin.py"]
+    "veg/carrot.py" [label="veg/carrot.py"]
+    "fruit/apple.py" [label="fruit/apple.py"]
+    "fruit/peach.py" [label="fruit/peach.py"]
+    "sweets/snickers.py" [label="sweets/snickers.py"]
+
     "main.py" -> "os"
     "main.py" -> "glob"
     "main.py" -> "subprocess.PIPE"

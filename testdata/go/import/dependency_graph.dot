@@ -1,4 +1,10 @@
 digraph G {
+    "main.go" [label="main.go"]
+    "fruit/apple.go" [label="fruit/apple.go"]
+    "fruit/peach.go" [label="fruit/peach.go"]
+    "sweets/twix.go" [label="sweets/twix.go"]
+    "sweets/snickers.go" [label="sweets/snickers.go"]
+
     "main.go" -> "fmt"
     "main.go" -> "path"
     "main.go" -> "sweets/twix.go"

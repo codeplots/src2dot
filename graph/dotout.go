@@ -8,6 +8,10 @@ func (g *Graph) ToDot() string {
     case false:
         dot += "graph G {\n"
     }
+    for _, n := range (*g).nodes {
+        dot += "\t\"" + n.id + "\" [label=\"" + n.label + "\"]\n"
+    }
+    dot += "\n"
     for _, e := range (*g).edges {
         dot += "\t\"" + e.sourceId + "\" -> \"" + e.targetId + "\"\n"
     }

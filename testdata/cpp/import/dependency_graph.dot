@@ -1,4 +1,10 @@
 digraph G {
+    "subdir/subhelper.h" [label="subdir/subhelper.h"]
+    "main.cpp" [label="main.cpp"]
+    "helper.h" [label="helper.h"]
+    "remoteheaders/remote.h" [label="remoteheaders/remote.h"]
+    "helper.cc" [label="helper.cc"]
+
     "main.cpp" -> "helper.h"
     "main.cpp" -> "subdir/subhelper.h"
     "main.cpp" -> "remoteheaders/remote.h"
