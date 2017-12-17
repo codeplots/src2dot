@@ -41,7 +41,9 @@ var KIND_TAG_MAP = map[string]interface{}{
 	"class":    ClassRef{},
 	"func":     FuncRef{},
 	"function": FuncRef{},
+        string(PYTHON) + "member": FuncRef{},
 	"member":   MemberRef{},
+	string(PYTHON) + "variable":   MemberRef{},
 	"file":     File{},
 }
 
@@ -134,10 +136,17 @@ func FromCtags(ctagsFile string) Database {
                     continue
                 }
 
-		typeDummy, found := KIND_TAG_MAP[fields[KIND_TAG]]
+                // Prioritiy for special 'language' + fields['kind_tag'] rule
+                // e.g. PYTHONmember, GOfunc
+		typeDummy, found := KIND_TAG_MAP[string(ref.language) + fields[KIND_TAG]]
+		if !found {
+                    // fallback to generic 'kind_tag' rule
+                    typeDummy, found = KIND_TAG_MAP[fields[KIND_TAG]]
+		}
 		if !found {
 			continue
 		}
+
 		switch reflect.TypeOf(typeDummy) {
 		case reflect.TypeOf(FuncRef{}):
 			funcRef := FuncRef{

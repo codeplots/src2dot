@@ -15,12 +15,18 @@ func ClassDiagram(store db.Database) (Graph, error) {
         label += "|"
 
         for _, m := range store.GetMembers(c) {
-            label += m.Symbol() + " : " + m.Typeref()
+            label += m.Symbol() 
+            if m.Typeref() != "" {
+                label += " : " + m.Typeref()
+            }
             label += "\\l"
         }
         label += "|"
         for _, m := range store.GetMethods(c) {
-            label += m.Symbol() + m.Signature() + " : " + m.Typeref()
+            label += m.Symbol() + m.Signature()
+            if m.Typeref() != "" {
+                label += " : " + m.Typeref()
+            }
             label += "\\l"
         }
         label += "}"

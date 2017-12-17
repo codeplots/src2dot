@@ -1,0 +1,100 @@
+cscope 15 /Users/julianvossen/go/src/github.com/codeplots/src2dot/testdata/python/classes -c 0000000613
+	@./fruit.py
+
+1 import 
+	~trees
+
+3 class 
+	cApple
+ ( 
+object
+ ) :
+
+4 
+	=colour
+ = "red"
+
+5 def 
+	$__init__
+ ( 
+self
+ ) :
+
+7 
+self
+ . 
+	=size
+ = 100
+
+8 
+self
+ . 
+	=tree
+ = 
+trees
+ . 
+	`AppleTree
+ ( ) 
+	}
+
+9 def 
+	$ripe
+ ( 
+self
+ ) :
+
+10 print ( "apple.ripe" ) 
+	}
+
+
+	@./main.py
+
+1 from 
+	~fruit
+ import 
+Apple
+
+3 
+	=a
+ = 
+	`Apple
+ ( )
+
+
+	@./trees.py
+
+1 class 
+	cTree
+ ( 
+object
+ ) :
+
+2 
+	=height
+ = 10
+
+4 class 
+	cAppleTree
+ ( 
+Tree
+ ) :
+
+5 def 
+	$__init__
+ ( 
+self
+ ) :
+
+6 print ( "appletree.init" ) 
+	}
+
+
+	@
+1
+.
+0
+3
+32
+./fruit.py
+./main.py
+./trees.py

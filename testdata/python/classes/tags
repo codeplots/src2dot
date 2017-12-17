@@ -1,0 +1,25 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/d9d7aa7/
+Apple	fruit.py	/^class Apple(object):$/;"	kind:class	line:3	language:Python	inherits:object	access:public	end:10
+Apple	main.py	/^from fruit import Apple$/;"	kind:unknown	line:1	language:Python	role:imported	extras:reference
+AppleTree	trees.py	/^class AppleTree(Tree):$/;"	kind:class	line:4	language:Python	inherits:Tree	access:public	end:6
+Tree	trees.py	/^class Tree(object):$/;"	kind:class	line:1	language:Python	inherits:object	access:public	end:2
+__init__	fruit.py	/^    def __init__(self):$/;"	kind:member	line:5	language:Python	scope:class:Apple	access:public	signature:(self)	end:8
+__init__	trees.py	/^    def __init__(self):$/;"	kind:member	line:5	language:Python	scope:class:AppleTree	access:public	signature:(self)	end:6
+a	main.py	/^a = Apple()$/;"	kind:variable	line:3	language:Python	access:public
+colour	fruit.py	/^    colour = "red"$/;"	kind:variable	line:4	language:Python	scope:class:Apple	access:public
+fruit	main.py	/^from fruit import Apple$/;"	kind:module	line:1	language:Python	role:namespace	extras:reference
+fruit.py	fruit.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:10
+height	trees.py	/^    height = 10$/;"	kind:variable	line:2	language:Python	scope:class:Tree	access:public
+main.py	main.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:4
+ripe	fruit.py	/^    def ripe(self):$/;"	kind:member	line:9	language:Python	scope:class:Apple	access:public	signature:(self)	end:10
+self	fruit.py	/^    def __init__(self):$/;"	kind:parameter	line:5	language:Python	scope:member:Apple.__init__	file:	access:private
+self	fruit.py	/^    def ripe(self):$/;"	kind:parameter	line:9	language:Python	scope:member:Apple.ripe	file:	access:private
+self	trees.py	/^    def __init__(self):$/;"	kind:parameter	line:5	language:Python	scope:member:AppleTree.__init__	file:	access:private
+trees	fruit.py	/^import trees$/;"	kind:module	line:1	language:Python	role:imported	extras:reference
+trees.py	trees.py	1;"	kind:file	line:1	language:Python	extras:inputFile	end:6

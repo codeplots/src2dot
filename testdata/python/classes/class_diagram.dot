@@ -1,0 +1,10 @@
+digraph {
+        rankdir="BT"
+        node [shape="record"]
+
+        "Apple" [label="{Apple|colour\l|__init__(self)\lripe(self)\l}"]
+        "AppleTree" [label="{AppleTree||__init__(self)\l}"]
+        "Tree" [label="{Tree|height\l|}"]
+
+        "AppleTree" -> "Tree"
+}
