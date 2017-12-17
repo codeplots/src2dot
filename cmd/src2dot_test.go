@@ -44,9 +44,8 @@ func TestDotting(t *testing.T) {
                     fmt.Printf("Warning: Could not recognize %s\n", n)
                     t.Skip()
                 }
-
                 actual := g.ToDot()
-                isEqual := hasSameEdges(string(expected), actual)
+                isEqual := hasSameEdges(string(expected), actual) && hasSameNodes(string(expected), actual)
                 if (!isEqual) {
                     t.Error("The output graph (1) does not match the expected graph (2):\n", "(1)", actual, "\n(2)", string(expected))
                 }
@@ -55,25 +54,25 @@ func TestDotting(t *testing.T) {
     }
 }
 
-func hasSameEdges(dot1 string, dot2 string) bool {
-    if !aContainsAllEdgesFromB(dot1, dot2) {
-        return false
-    }
-    if !aContainsAllEdgesFromB(dot2, dot1) {
-        return false
-    }
-    return true
+func hasSameNodes(dot1 string, dot2 string) bool {
+        if !aContainsAllNodesFromB(dot1, dot2) {
+            return false
+        }
+        if !aContainsAllNodesFromB(dot2, dot1) {
+            return false
+        }
+        return true
 }
 
-func aContainsAllEdgesFromB(a string, b string) bool{
+func aContainsAllNodesFromB(a string, b string) bool {
     bLines := strings.Split(b, "\n")
-    r := regexp.MustCompile(`^\s*"(.*)"\s*->\s*"(.*)"\s*$`)
+    r := regexp.MustCompile(`^\s*"(.*)"\s*\[\s*label=\"(.*)"\s*\]\s*$`)
     for _, line := range bLines {
         matches := r.FindStringSubmatch(line)
         if len(matches) == 3 {
-            source := matches[1]
-            target := matches[2]
-            if !containsEdge(a, source, target) {
+            id := matches[1]
+            label := matches[2]
+            if !containsNode(a, id, label) {
                 return false
             }
         }
@@ -81,10 +80,81 @@ func aContainsAllEdgesFromB(a string, b string) bool{
     return true
 }
 
-func containsEdge(dot string, source string, target string) bool {
+func containsNode(dot string, id string, label string) bool {
     r := regexp.MustCompile(`\s*"` +
+        regexp.QuoteMeta(id) + `"\s*\[\s*label="` +
+        regexp.QuoteMeta(label) + `"\s*\]\s*\n`)
+    found := r.FindStringIndex(dot)
+    if found == nil {
+        return false
+    }
+    return true
+}
+
+func hasSameEdges(dot1 string, dot2 string) bool {
+    styles := []graph.EdgeStyle{
+        graph.LINE,
+        graph.ARROW,
+        graph.HOLLOW_DIAMOND,
+        graph.FILLED_DIAMOND,
+    }
+    for _, s := range styles {
+        if !aContainsAllEdgesFromB(dot1, dot2, s) {
+            return false
+        }
+        if !aContainsAllEdgesFromB(dot2, dot1, s) {
+            return false
+        }
+    }
+    return true
+}
+
+func aContainsAllEdgesFromB(a string, b string, style graph.EdgeStyle) bool{
+    bLines := strings.Split(b, "\n")
+    var r *regexp.Regexp
+    switch style {
+    case graph.LINE:
+        r = regexp.MustCompile(`^\s*"(.*)"\s*->\s*"(.*)"\s*\[dir="?none"?\]\s*$`)
+    case graph.HOLLOW_DIAMOND:
+        r = regexp.MustCompile(`^\s*"(.*)"\s*->\s*"(.*)"\s*\[arrowhead="?ediamond"?\]\s*$`)
+    case graph.FILLED_DIAMOND:
+        r = regexp.MustCompile(`^\s*"(.*)"\s*->\s*"(.*)"\s*\[arrowhead="?diamond"?\]\s*$`)
+    default:
+        r = regexp.MustCompile(`^\s*"(.*)"\s*->\s*"(.*)"\s*$`)
+    }
+    for _, line := range bLines {
+        matches := r.FindStringSubmatch(line)
+        if len(matches) == 3 {
+            source := matches[1]
+            target := matches[2]
+            if !containsEdge(a, source, target, style) {
+                return false
+            }
+        }
+    }
+    return true
+}
+
+func containsEdge(dot string, source string, target string, style graph.EdgeStyle) bool {
+    var r *regexp.Regexp
+    switch style {
+    case graph.LINE:
+        r = regexp.MustCompile(`\s*"` +
+        regexp.QuoteMeta(source) + `"\s*->\s*"` +
+        regexp.QuoteMeta(target) + `"\s*\[dir="?none"?\]\s*\n`)
+    case graph.HOLLOW_DIAMOND:
+        r = regexp.MustCompile(`\s*"` +
+        regexp.QuoteMeta(source) + `"\s*->\s*"` +
+        regexp.QuoteMeta(target) + `"\s*\[arrowhead="?ediamond"?\]\s*\n`)
+    case graph.FILLED_DIAMOND:
+        r = regexp.MustCompile(`\s*"` +
+        regexp.QuoteMeta(source) + `"\s*->\s*"` +
+        regexp.QuoteMeta(target) + `"\s*\[arrowhead="?diamond"?\]\s*\n`)
+    default:
+        r = regexp.MustCompile(`\s*"` +
         source + `"\s*->\s*"` +
-        target + `"\s*`)
+        target + `"\s*\n`)
+    }
     found := r.FindStringIndex(dot)
     if found == nil {
         return false

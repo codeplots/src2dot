@@ -6,9 +6,18 @@ type Node struct {
     parentId    string
 }
 
+type EdgeStyle string
+const (
+    LINE        EdgeStyle = "line"
+    ARROW       EdgeStyle = "arrow"
+    HOLLOW_DIAMOND     EdgeStyle = "hollow_diamond"
+    FILLED_DIAMOND     EdgeStyle = "filled_diamond"
+)
+
 type Edge struct {
     sourceId    string
     targetId    string
+    style       EdgeStyle
 }
 
 type Graph struct {
