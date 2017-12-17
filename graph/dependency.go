@@ -11,7 +11,6 @@ func DependencyGraph(store db.Database) (Graph, error) {
     g := Graph {
         nodes: []Node{},
         edges: []Edge{},
-        isDirected: true,
     }
 
     for _, ref := range store.GetImports() {
@@ -21,7 +20,7 @@ func DependencyGraph(store db.Database) (Graph, error) {
         id := path.Join(ref.Dir(), ref.Filename())
         g.addNodeIfNotExist(Node{
             id: id,
-            label: ref.Filename(),
+            label: id,
             parentId: ref.Dir(),
         })
 
@@ -40,7 +39,7 @@ func DependencyGraph(store db.Database) (Graph, error) {
             fileId := path.Join(file.Dir(), file.Name())
             g.addNodeIfNotExist(Node{
                 id: fileId,
-                label: file.Name(),
+                label: fileId,
                 parentId: file.Dir(),
             })
             g.addEdgeIfNotExist(Edge{

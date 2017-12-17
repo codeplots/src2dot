@@ -14,7 +14,6 @@ type Edge struct {
 type Graph struct {
     nodes       []Node
     edges       []Edge
-    isDirected  bool
 }
 
 func (g *Graph) GetNode(id string) (Node, bool) {
