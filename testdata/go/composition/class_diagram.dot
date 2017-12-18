@@ -1,0 +1,9 @@
+digraph {
+        rankdir="BT"
+        node [shape="record"]
+
+        "Plant" [label="{Plant|age\l|}"]
+        "Tree" [label="{Tree|height\l|Grow()\l}"]
+
+        "Plant" -> "Tree" [arrowhead="ediamond"]
+}

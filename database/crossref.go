@@ -2,10 +2,12 @@ package database
 
 import (
     "strings"
+    "regexp"
 )
 
 const (
     SCOPE_CLASS_PREFIX string = "class:"
+    SCOPE_STRUCT_PREFIX string = "struct:"
 )
 
 func (db *Database) GetImportedFiles(ref ImportRef) ([]File, error) {
@@ -43,8 +45,14 @@ func (db *Database) GetCallee(ref FuncCallRef) FuncRef {
 func (db *Database) GetMethods(ref ClassRef) []FuncRef {
         methods := []FuncRef{} 
         for _, f := range (*db).functions {
-            if f.dir == ref.dir && f.scope == SCOPE_CLASS_PREFIX+ref.symbol {
+            switch {
+            case f.dir == ref.dir && f.scope == SCOPE_CLASS_PREFIX+ref.symbol:
                 methods = append(methods, f)
+            case ref.language == GO:
+                r := regexp.MustCompile(`func\s(\s*\S+\s*\*?\s*`+ regexp.QuoteMeta(ref.symbol) + `\s*)`)
+                if r.MatchString(f.lineSrc) {
+                    methods = append(methods, f)
+                }
             }
         }
 	return methods
@@ -53,8 +61,13 @@ func (db *Database) GetMethods(ref ClassRef) []FuncRef {
 func (db *Database) GetMembers(ref ClassRef) []MemberRef{
         members := []MemberRef{}
         for _, m := range (*db).members {
-            if m.dir == ref.dir && m.scope == SCOPE_CLASS_PREFIX+ref.symbol {
+            switch {
+            case m.dir == ref.dir && m.scope == SCOPE_CLASS_PREFIX+ref.symbol:
                 members = append(members, m)
+            case ref.language == GO:
+                if m.dir == ref.dir && m.scope == SCOPE_STRUCT_PREFIX+ref.symbol {
+                    members = append(members, m)
+                }
             }
         }
 	return members
@@ -99,6 +112,11 @@ func (db *Database) GetAggregations(ref ClassRef) []ClassRef {
         for _, c := range (*db).classes {
             if strings.Contains(memberSrcConcat, c.symbol) ||
                 strings.Contains(memberTypeConcat, c.symbol) {
+                aggr = append(aggr, c)
+                continue
+            }
+            r := regexp.MustCompile(`\W`+regexp.QuoteMeta(c.symbol)+`\W`)
+            if ref.language == GO && r.MatchString(ref.lineSrc) && ref.symbol != c.symbol {
                 aggr = append(aggr, c)
             }
         }

@@ -1,0 +1,123 @@
+cscope 15 /Users/julianvossen/go/src/github.com/codeplots/src2dot/testdata/go/composition -c 0000000654
+	@main.go
+
+0  
+	$-
+
+1 package 
+	gmain
+ 
+
+4 "
+github.com
+/
+codeplots
+/
+src2dot
+/
+testdata
+/
+go
+/
+composition
+/
+	~<plants
+"
+
+5 "
+	~<fmt
+"
+
+8  
+	}
+func 
+	$main
+() {
+
+9  
+fmt
+.
+	`Println
+("main")
+
+10  
+	=someTree
+ := plants.Tree{}
+
+11  
+someTree
+.
+	`Grow
+()
+
+12  
+	}}
+ 
+	$-
+ 
+
+	@plants/store.go
+
+0  
+	$-
+
+1 package 
+	gplants
+ 
+
+3 import "
+	~<fmt
+"
+
+5 type 
+	cPlant
+ struct {
+
+6  
+	gage
+ int
+
+7  
+}
+ 
+
+9 type 
+	cTree
+ struct {
+
+11  
+	gheight
+ int
+
+12  
+}
+ 
+
+14  
+	}
+func (t *
+Tree
+) 
+	$Grow
+() {
+
+15  
+fmt
+.
+	`Println
+("Tree grows")
+
+16  
+	}}
+ 
+	$-
+ 
+
+	@
+1
+**/*
+0
+2
+24
+main.go
+plants/store.go

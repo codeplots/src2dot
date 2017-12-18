@@ -39,6 +39,7 @@ var LANGUAGE_TAG_MAP = map[string]LanguageType{
 // corresponding type
 var KIND_TAG_MAP = map[string]interface{}{
 	"class":    ClassRef{},
+        string(GO) + "struct" : ClassRef{},
 	"func":     FuncRef{},
 	"function": FuncRef{},
         string(PYTHON) + "member": FuncRef{},
@@ -169,6 +170,10 @@ func FromCtags(ctagsFile string) Database {
 			db.members = append(db.members, memberRef)
 		case reflect.TypeOf(ClassRef{}):
                         parent, _ := fields[INHERITS_TAG]
+                        if ref.language == GO {
+                            ref.lineSrc = getSrcBlock(ref.lineNo,
+                                path.Join(ref.dir, ref.filename), ctagsFile)
+                        }
 			classRef := ClassRef{
 				Ref: ref,
                                 inherits: parent,
@@ -185,4 +190,27 @@ func FromCtags(ctagsFile string) Database {
 		}
 	}
 	return db
+}
+func getSrcBlock(startLine int, filepath string, ctagsFile string) string {
+    if !path.IsAbs(filepath) {
+        base, _ := path.Split(ctagsFile)
+        filepath = path.Join(base, filepath)
+    }
+    src, _ := ioutil.ReadFile(filepath)
+    srcLines := strings.Split(string(src), "\n")
+    nb_open := 0
+    for i, l := range srcLines[startLine-1:] {
+        for _, c := range l {
+            switch c {
+            case '{':
+                nb_open += 1
+            case '}':
+                nb_open -= 1
+            }
+        }
+        if nb_open <= 0 {
+            return strings.Join(srcLines[startLine-1:startLine+i+1], "\n")
+        }
+    }
+    return srcLines[startLine]
 }
