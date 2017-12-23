@@ -1,19 +1,19 @@
 package main
 
 import (
-        "flag"
+	"flag"
 	"fmt"
-        "io/ioutil"
-        "os"
 	db "github.com/codeplots/src2dot/database"
-        "github.com/codeplots/src2dot/graph"
+	"github.com/codeplots/src2dot/graph"
+	"io/ioutil"
+	"os"
 )
 
 const (
-    DEP_FILENAME        string = "dependency_graph.dot"
-    CLASS_FILENAME      string = "class_diagram.dot"
-    CALL_FILENAME       string = "call_graph.dot"
-    PERMISSION          os.FileMode    = 0644
+	DEP_FILENAME   string      = "dependency_graph.dot"
+	CLASS_FILENAME string      = "class_diagram.dot"
+	CALL_FILENAME  string      = "call_graph.dot"
+	PERMISSION     os.FileMode = 0644
 )
 
 func main() {
@@ -22,29 +22,29 @@ func main() {
 	store := db.FromCtags(opts.ctags)
 	store.AddCscope(opts.cscope)
 
-        if !(opts.dep || opts.class || opts.call) {
-            dep, _ := graph.DependencyGraph(store)
-            err := ioutil.WriteFile(DEP_FILENAME, []byte(dep.ToDot()), PERMISSION)
-            if err != nil {
-                panic(err)
-            }
-            class, _ := graph.ClassDiagram(store)
-            err = ioutil.WriteFile(CLASS_FILENAME, []byte(class.ToDot()), PERMISSION)
-            if err != nil {
-                panic(err)
-            }
+	if !(opts.dep || opts.class || opts.call) {
+		dep, _ := graph.DependencyGraph(store)
+		err := ioutil.WriteFile(DEP_FILENAME, []byte(dep.ToDot()), PERMISSION)
+		if err != nil {
+			panic(err)
+		}
+		class, _ := graph.ClassDiagram(store)
+		err = ioutil.WriteFile(CLASS_FILENAME, []byte(class.ToDot()), PERMISSION)
+		if err != nil {
+			panic(err)
+		}
 
-            return
-        }
+		return
+	}
 
-        if opts.dep {
-            dep, _ := graph.DependencyGraph(store)
-            fmt.Println(dep.ToDot())
-        }
-        if opts.class {
-            class, _ := graph.ClassDiagram(store)
-            fmt.Println(class.ToDot())
-        }
+	if opts.dep {
+		dep, _ := graph.DependencyGraph(store)
+		fmt.Println(dep.ToDot())
+	}
+	if opts.class {
+		class, _ := graph.ClassDiagram(store)
+		fmt.Println(class.ToDot())
+	}
 
 }
 
@@ -52,9 +52,9 @@ type Options struct {
 	ctags  string
 	cscope string
 	raw    bool
-	dep      bool
-	class      bool
-	call      bool
+	dep    bool
+	class  bool
+	call   bool
 }
 
 func parseOptions() Options {

@@ -1,69 +1,70 @@
 package graph
 
 type Node struct {
-    id          string
-    label       string
-    parentId    string
+	id       string
+	label    string
+	parentId string
 }
 
 type EdgeStyle string
+
 const (
-    LINE        EdgeStyle = "line"
-    ARROW       EdgeStyle = "arrow"
-    HOLLOW_DIAMOND     EdgeStyle = "hollow_diamond"
-    FILLED_DIAMOND     EdgeStyle = "filled_diamond"
+	LINE           EdgeStyle = "line"
+	ARROW          EdgeStyle = "arrow"
+	HOLLOW_DIAMOND EdgeStyle = "hollow_diamond"
+	FILLED_DIAMOND EdgeStyle = "filled_diamond"
 )
 
 type Edge struct {
-    sourceId    string
-    targetId    string
-    style       EdgeStyle
+	sourceId string
+	targetId string
+	style    EdgeStyle
 }
 
 type GraphType string
+
 const (
-    DEPENDENCY_GRAPH    GraphType = "dependency_graph"
-    CLASS_DIAGRAM       GraphType = "class_diagram"
-    CALL_GRAPH          GraphType = "call_graph"
+	DEPENDENCY_GRAPH GraphType = "dependency_graph"
+	CLASS_DIAGRAM    GraphType = "class_diagram"
+	CALL_GRAPH       GraphType = "call_graph"
 )
 
 type Graph struct {
-    nodes       []Node
-    edges       []Edge
-    kind        GraphType
+	nodes []Node
+	edges []Edge
+	kind  GraphType
 }
 
 func (g *Graph) GetNode(id string) (Node, bool) {
-    for _, n := range (*g).nodes {
-        if id == n.id {
-            return n, true
-        }
-    }
-    return Node{}, false
+	for _, n := range (*g).nodes {
+		if id == n.id {
+			return n, true
+		}
+	}
+	return Node{}, false
 }
 
 func (g *Graph) GetEdge(sourceId string, targetId string) (Edge, bool) {
-    for _, e := range (*g).edges {
-        if e.sourceId == sourceId && e.targetId == targetId {
-            return e, true
-        }
-    }
-    return Edge{}, false
+	for _, e := range (*g).edges {
+		if e.sourceId == sourceId && e.targetId == targetId {
+			return e, true
+		}
+	}
+	return Edge{}, false
 }
 
-
 func (g *Graph) addNodeIfNotExist(n Node) bool {
-    _, found := (*g).GetNode(n.id)
-    if !found {
-        (*g).nodes = append((*g).nodes, n)
-    }
-    return !found
+	_, found := (*g).GetNode(n.id)
+	if !found {
+		(*g).nodes = append((*g).nodes, n)
+	}
+	return !found
 }
 
 func (g *Graph) addEdgeIfNotExist(e Edge) bool {
-    _, found := (*g).GetEdge(e.sourceId, e.targetId)
-    if !found {
-        (*g).edges = append((*g).edges, e)
-    }
-    return !found
+	_, found := (*g).GetEdge(e.sourceId, e.targetId)
+	if !found {
+		(*g).edges = append((*g).edges, e)
+	}
+	return !found
 }

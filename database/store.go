@@ -39,38 +39,38 @@ type Ref struct {
 }
 
 func (r *Ref) Symbol() string {
-    return (*r).symbol
+	return (*r).symbol
 }
 
 func (r *Ref) Filename() string {
-    return (*r).filename
+	return (*r).filename
 }
 
 func (r *Ref) Module() string {
-    return (*r).module
+	return (*r).module
 }
 
 func (r *Ref) Dir() string {
-    return (*r).dir
+	return (*r).dir
 }
 
 func (r *Ref) LineNo() int {
-    return (*r).lineNo
+	return (*r).lineNo
 }
 
 func (r *Ref) LineSrc() string {
-    return (*r).lineSrc
+	return (*r).lineSrc
 }
 
 func (r *Ref) Language() LanguageType {
-    return (*r).language
+	return (*r).language
 }
 
 func (r *FuncRef) Signature() string {
-    return (*r).signature
+	return (*r).signature
 }
 func (r *FuncRef) Typeref() string {
-    return (*r).typeref
+	return (*r).typeref
 }
 
 type FuncRef struct {
@@ -91,15 +91,16 @@ type ImportRef struct {
 }
 
 func (r *ImportRef) Type() ImportType {
-    return (*r).type_
+	return (*r).type_
 }
 
 type ClassRef struct {
 	Ref
-        inherits        string
+	inherits string
 }
+
 func (r *MemberRef) Typeref() string {
-    return (*r).typeref
+	return (*r).typeref
 }
 
 type MemberRef struct {
@@ -124,17 +125,18 @@ type File struct {
 	language  LanguageType
 	lineCount int
 }
+
 func (f *File) Name() string {
-    return (*f).name
+	return (*f).name
 }
 func (f *File) Dir() string {
-    return (*f).dir
+	return (*f).dir
 }
 func (f *File) Language() LanguageType {
-    return (*f).language
+	return (*f).language
 }
 func (f *File) LineCount() int {
-    return (*f).lineCount
+	return (*f).lineCount
 }
 
 type Dir struct {

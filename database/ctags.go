@@ -1,7 +1,7 @@
 package database
 
 import (
-    "fmt"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"path"
@@ -11,19 +11,19 @@ import (
 )
 
 const (
-	LANGUAGE_TAG  string = "language"
-	END_TAG       string = "end"
-	LINE_TAG      string = "line"
-	SIGNATURE_TAG string = "signature"
-	SCOPE_TAG     string = "scope"
-	ACCESS_TAG    string = "access"
-	TYPEREF_TAG   string = "typeref"
-	KIND_TAG      string = "kind"
-        REFERENCE_TAG string = "reference"
-        EXTRAS_TAG     string = "extras"
-        ROLE_TAG        string = "role"
-        INHERITS_TAG    string = "inherits"
-        TYPENAME_PREFIX    string = "typename:"
+	LANGUAGE_TAG    string = "language"
+	END_TAG         string = "end"
+	LINE_TAG        string = "line"
+	SIGNATURE_TAG   string = "signature"
+	SCOPE_TAG       string = "scope"
+	ACCESS_TAG      string = "access"
+	TYPEREF_TAG     string = "typeref"
+	KIND_TAG        string = "kind"
+	REFERENCE_TAG   string = "reference"
+	EXTRAS_TAG      string = "extras"
+	ROLE_TAG        string = "role"
+	INHERITS_TAG    string = "inherits"
+	TYPENAME_PREFIX string = "typename:"
 )
 
 // pseudo constant mapping between ctags language literals and LanguageType
@@ -38,14 +38,14 @@ var LANGUAGE_TAG_MAP = map[string]LanguageType{
 // pseudo constant mapping between ctag kind literals and a dummy of the
 // corresponding type
 var KIND_TAG_MAP = map[string]interface{}{
-	"class":    ClassRef{},
-        string(GO) + "struct" : ClassRef{},
-	"func":     FuncRef{},
-	"function": FuncRef{},
-        string(PYTHON) + "member": FuncRef{},
-	"member":   MemberRef{},
-	string(PYTHON) + "variable":   MemberRef{},
-	"file":     File{},
+	"class":                     ClassRef{},
+	string(GO) + "struct":       ClassRef{},
+	"func":                      FuncRef{},
+	"function":                  FuncRef{},
+	string(PYTHON) + "member":   FuncRef{},
+	"member":                    MemberRef{},
+	string(PYTHON) + "variable": MemberRef{},
+	"file": File{},
 }
 
 var ACCESS_TAG_MAP = map[string]AccessType{
@@ -55,8 +55,8 @@ var ACCESS_TAG_MAP = map[string]AccessType{
 }
 
 var REFERENCE_TAG_MAP = map[string]ImportType{
-	"local":   LOCAL,
-        "system":  SYSTEM,
+	"local":  LOCAL,
+	"system": SYSTEM,
 }
 
 func getAccessType(tag string) AccessType {
@@ -119,30 +119,30 @@ func FromCtags(ctagsFile string) Database {
 		ref.lineNo, _ = strconv.Atoi(fields[LINE_TAG])
 		ref.language = getLanguageType(fields[LANGUAGE_TAG])
 
-                extras, found := fields[EXTRAS_TAG]
-                if found && extras == REFERENCE_TAG {
-                    importType, found := REFERENCE_TAG_MAP[fields[ROLE_TAG]]
-                    if !found {
-                        importType = UNKNOWN_IMPORT
-                    }
-                    importRef := ImportRef{
-                        Ref:       ref,
-                        type_: importType,
-                    }
-                    db.imports[fmt.Sprintf(
-                        "%s:%i:%s",
-                        path.Join(ref.dir, ref.filename),
-                        ref.lineNo,
-                        ref.symbol)] = importRef
-                    continue
-                }
+		extras, found := fields[EXTRAS_TAG]
+		if found && extras == REFERENCE_TAG {
+			importType, found := REFERENCE_TAG_MAP[fields[ROLE_TAG]]
+			if !found {
+				importType = UNKNOWN_IMPORT
+			}
+			importRef := ImportRef{
+				Ref:   ref,
+				type_: importType,
+			}
+			db.imports[fmt.Sprintf(
+				"%s:%i:%s",
+				path.Join(ref.dir, ref.filename),
+				ref.lineNo,
+				ref.symbol)] = importRef
+			continue
+		}
 
-                // Prioritiy for special 'language' + fields['kind_tag'] rule
-                // e.g. PYTHONmember, GOfunc
-		typeDummy, found := KIND_TAG_MAP[string(ref.language) + fields[KIND_TAG]]
+		// Prioritiy for special 'language' + fields['kind_tag'] rule
+		// e.g. PYTHONmember, GOfunc
+		typeDummy, found := KIND_TAG_MAP[string(ref.language)+fields[KIND_TAG]]
 		if !found {
-                    // fallback to generic 'kind_tag' rule
-                    typeDummy, found = KIND_TAG_MAP[fields[KIND_TAG]]
+			// fallback to generic 'kind_tag' rule
+			typeDummy, found = KIND_TAG_MAP[fields[KIND_TAG]]
 		}
 		if !found {
 			continue
@@ -154,29 +154,29 @@ func FromCtags(ctagsFile string) Database {
 				Ref:       ref,
 				signature: fields[SIGNATURE_TAG],
 				scope:     fields[SCOPE_TAG],
-				typeref:   strings.TrimPrefix(fields[TYPEREF_TAG], 
-                                            TYPENAME_PREFIX),
+				typeref: strings.TrimPrefix(fields[TYPEREF_TAG],
+					TYPENAME_PREFIX),
 			}
 			funcRef.end, _ = strconv.Atoi(fields[END_TAG])
 			db.functions = append(db.functions, funcRef)
 		case reflect.TypeOf(MemberRef{}):
 			memberRef := MemberRef{
-				Ref:     ref,
-				scope:   fields[SCOPE_TAG],
-				typeref:   strings.TrimPrefix(fields[TYPEREF_TAG], 
-                                            TYPENAME_PREFIX),
-				access:  getAccessType(fields[ACCESS_TAG]),
+				Ref:   ref,
+				scope: fields[SCOPE_TAG],
+				typeref: strings.TrimPrefix(fields[TYPEREF_TAG],
+					TYPENAME_PREFIX),
+				access: getAccessType(fields[ACCESS_TAG]),
 			}
 			db.members = append(db.members, memberRef)
 		case reflect.TypeOf(ClassRef{}):
-                        parent, _ := fields[INHERITS_TAG]
-                        if ref.language == GO {
-                            ref.lineSrc = getSrcBlock(ref.lineNo,
-                                path.Join(ref.dir, ref.filename), ctagsFile)
-                        }
+			parent, _ := fields[INHERITS_TAG]
+			if ref.language == GO {
+				ref.lineSrc = getSrcBlock(ref.lineNo,
+					path.Join(ref.dir, ref.filename), ctagsFile)
+			}
 			classRef := ClassRef{
-				Ref: ref,
-                                inherits: parent,
+				Ref:      ref,
+				inherits: parent,
 			}
 			db.classes = append(db.classes, classRef)
 		case reflect.TypeOf(File{}):
@@ -192,25 +192,25 @@ func FromCtags(ctagsFile string) Database {
 	return db
 }
 func getSrcBlock(startLine int, filepath string, ctagsFile string) string {
-    if !path.IsAbs(filepath) {
-        base, _ := path.Split(ctagsFile)
-        filepath = path.Join(base, filepath)
-    }
-    src, _ := ioutil.ReadFile(filepath)
-    srcLines := strings.Split(string(src), "\n")
-    nb_open := 0
-    for i, l := range srcLines[startLine-1:] {
-        for _, c := range l {
-            switch c {
-            case '{':
-                nb_open += 1
-            case '}':
-                nb_open -= 1
-            }
-        }
-        if nb_open <= 0 {
-            return strings.Join(srcLines[startLine-1:startLine+i+1], "\n")
-        }
-    }
-    return srcLines[startLine]
+	if !path.IsAbs(filepath) {
+		base, _ := path.Split(ctagsFile)
+		filepath = path.Join(base, filepath)
+	}
+	src, _ := ioutil.ReadFile(filepath)
+	srcLines := strings.Split(string(src), "\n")
+	nb_open := 0
+	for i, l := range srcLines[startLine-1:] {
+		for _, c := range l {
+			switch c {
+			case '{':
+				nb_open += 1
+			case '}':
+				nb_open -= 1
+			}
+		}
+		if nb_open <= 0 {
+			return strings.Join(srcLines[startLine-1:startLine+i+1], "\n")
+		}
+	}
+	return srcLines[startLine]
 }

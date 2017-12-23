@@ -1,7 +1,7 @@
 package database
 
 import (
-    "fmt"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"path"
@@ -50,7 +50,7 @@ func (db *Database) AddCscope(cscopeFile string) {
 	cscopeLines := strings.Split(string(cscope), "\n")
 
 	var filename, dir, module, lineSrc string
-        lineNo := 0
+	lineNo := 0
 	for i, line := range cscopeLines {
 		switch {
 		case strings.HasPrefix(line, IMPORT_PREFIX):
@@ -61,7 +61,7 @@ func (db *Database) AddCscope(cscopeFile string) {
 				module:   module,
 				dir:      dir,
 				lineNo:   lineNo,
-                                lineSrc:  lineSrc,
+				lineSrc:  lineSrc,
 				language: (*db).GetLangForFile(
 					path.Join(dir, filename)),
 			}
@@ -70,20 +70,20 @@ func (db *Database) AddCscope(cscopeFile string) {
 				type_: type_,
 			}
 
-                        // add the import reference only, if there is none with
-                        // the same (dir, filename, lineNo, symbol) in the
-                        // database
-                        _, found := (*db).imports[fmt.Sprintf( "%s:%i:%s",
-                            path.Join(dir, filename),
-                            lineNo,
-                            symbol)]
+			// add the import reference only, if there is none with
+			// the same (dir, filename, lineNo, symbol) in the
+			// database
+			_, found := (*db).imports[fmt.Sprintf("%s:%i:%s",
+				path.Join(dir, filename),
+				lineNo,
+				symbol)]
 
-                            if !found {
-                                (*db).imports[fmt.Sprintf( "%s:%i:%s",
-                                path.Join(dir, filename),
-                                lineNo,
-                                symbol)] = importRef
-                            }
+			if !found {
+				(*db).imports[fmt.Sprintf("%s:%i:%s",
+					path.Join(dir, filename),
+					lineNo,
+					symbol)] = importRef
+			}
 
 		case strings.HasPrefix(line, FUNC_CALL_PREFIX):
 			ref := Ref{
@@ -93,7 +93,7 @@ func (db *Database) AddCscope(cscopeFile string) {
 				module:   module,
 				dir:      dir,
 				lineNo:   lineNo,
-                                lineSrc:  lineSrc,
+				lineSrc:  lineSrc,
 				language: (*db).GetLangForFile(
 					path.Join(dir, filename)),
 			}
@@ -107,50 +107,50 @@ func (db *Database) AddCscope(cscopeFile string) {
 			module = strings.Split(filename, ".")[0]
 		case len(line) > 0 && line[0] >= '0' && line[0] <= '9':
 			lineNo, _ = strconv.Atoi(strings.Split(line, " ")[0])
-                        if lineNo >= 1 {
-                            lineEnd := findLineEnd(cscopeLines[i+1:])
-                            if lineEnd != 0 {
-                                lineSrc = concatLineSrc(cscopeLines[i:lineEnd+i])
-                            }
-                        }
+			if lineNo >= 1 {
+				lineEnd := findLineEnd(cscopeLines[i+1:])
+				if lineEnd != 0 {
+					lineSrc = concatLineSrc(cscopeLines[i : lineEnd+i])
+				}
+			}
 		}
 	}
 }
 
 func findLineEnd(lines []string) int {
-    for i, l := range lines {
-        switch {
-        case len(l) > 0 && l[0] >= '0' && l[0] <= '9':
-            return i
-        case strings.HasPrefix(l, FILE_PREFIX):
-            return 0
-        }
-    }
-    return 0
+	for i, l := range lines {
+		switch {
+		case len(l) > 0 && l[0] >= '0' && l[0] <= '9':
+			return i
+		case strings.HasPrefix(l, FILE_PREFIX):
+			return 0
+		}
+	}
+	return 0
 }
 
 func concatLineSrc(lines []string) string {
-    lines[0] = strings.Join(strings.Split(lines[0], " ")[1:], " ")
-    concat := strings.Join(lines, "")
-    concat = strings.Replace(concat, FUNC_DEF_PREFIX, "", -1)
-    concat = strings.Replace(concat, FUNC_CALL_PREFIX, "", -1)
-    concat = strings.Replace(concat, FUNC_END_PREFIX, "", -1)
-    concat = strings.Replace(concat, DEFINE_PREFIX, "", -1)
-    concat = strings.Replace(concat, DEFINE_END_PREFIX, "", -1)
-    concat = strings.Replace(concat, LOCAL_IMPORT_PREFIX, "", -1)
-    concat = strings.Replace(concat, SYS_IMPORT_PREFIX, "", -1)
-    concat = strings.Replace(concat, IMPORT_PREFIX, "", -1)
-    concat = strings.Replace(concat, ASSIGN_PREFIX, "", -1)
-    concat = strings.Replace(concat, ENUM_ST_UN_END_PREFIX, "", -1)
-    concat = strings.Replace(concat, CLASS_DEF_PREFIX, "", -1)
-    concat = strings.Replace(concat, ENUM_DEF_PREFIX, "", -1)
-    concat = strings.Replace(concat, GLOB_DEF_PREFIX, "", -1)
-    concat = strings.Replace(concat, LOCAL_DEF_PREFIX, "", -1)
-    concat = strings.Replace(concat, GLOB_EN_ST_UN_MEM_PREFIX, "", -1)
-    concat = strings.Replace(concat, FUNC_PARAM_PREFIX, "", -1)
-    concat = strings.Replace(concat, STRUCT_PREFIX, "", -1)
-    concat = strings.Replace(concat, TYPEDEF_PREFIX, "", -1)
-    concat = strings.Replace(concat, UNION_PREFIX, "", -1)
-    concat = strings.TrimSpace(concat)
-    return concat
+	lines[0] = strings.Join(strings.Split(lines[0], " ")[1:], " ")
+	concat := strings.Join(lines, "")
+	concat = strings.Replace(concat, FUNC_DEF_PREFIX, "", -1)
+	concat = strings.Replace(concat, FUNC_CALL_PREFIX, "", -1)
+	concat = strings.Replace(concat, FUNC_END_PREFIX, "", -1)
+	concat = strings.Replace(concat, DEFINE_PREFIX, "", -1)
+	concat = strings.Replace(concat, DEFINE_END_PREFIX, "", -1)
+	concat = strings.Replace(concat, LOCAL_IMPORT_PREFIX, "", -1)
+	concat = strings.Replace(concat, SYS_IMPORT_PREFIX, "", -1)
+	concat = strings.Replace(concat, IMPORT_PREFIX, "", -1)
+	concat = strings.Replace(concat, ASSIGN_PREFIX, "", -1)
+	concat = strings.Replace(concat, ENUM_ST_UN_END_PREFIX, "", -1)
+	concat = strings.Replace(concat, CLASS_DEF_PREFIX, "", -1)
+	concat = strings.Replace(concat, ENUM_DEF_PREFIX, "", -1)
+	concat = strings.Replace(concat, GLOB_DEF_PREFIX, "", -1)
+	concat = strings.Replace(concat, LOCAL_DEF_PREFIX, "", -1)
+	concat = strings.Replace(concat, GLOB_EN_ST_UN_MEM_PREFIX, "", -1)
+	concat = strings.Replace(concat, FUNC_PARAM_PREFIX, "", -1)
+	concat = strings.Replace(concat, STRUCT_PREFIX, "", -1)
+	concat = strings.Replace(concat, TYPEDEF_PREFIX, "", -1)
+	concat = strings.Replace(concat, UNION_PREFIX, "", -1)
+	concat = strings.TrimSpace(concat)
+	return concat
 }
