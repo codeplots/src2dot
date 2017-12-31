@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+if [[ ! $@ ]]; then
+    echo 'Usage: prepare <directory path>'
+    exit
+fi
+CURRENT_PATH=$(pwd)
+WORKDIR=$1
+cd $WORKDIR
+
+ctags --all-kinds=* --fields=* -R --extras=+frF .
+
+# run cscope for C/C++/Java 
+cscope -kbcR -f cscope.cscope.out.tmp
+
+# run starscope for Go
+starscope -e cscope,starscope.cscope.out.tmp -f .starscope.db
+
+# run pycscope for Python
+pycscope -R -f pycscope.cscope.out.tmp
+
+cat *.cscope.out.tmp > cscope.out
+rm -f *.cscope.out.tmp .starscope.db
+
+cd $CURRENT_PATH
