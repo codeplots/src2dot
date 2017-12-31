@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+        "encoding/json"
 	db "github.com/codeplots/src2dot/database"
 	"github.com/codeplots/src2dot/graph"
 	"io/ioutil"
@@ -10,9 +11,9 @@ import (
 )
 
 const (
-	DEP_FILENAME   string      = "dependency_graph.dot"
-	CLASS_FILENAME string      = "class_diagram.dot"
-	CALL_FILENAME  string      = "call_graph.dot"
+	DEP_FILENAME   string      = "dependency_graph"
+	CLASS_FILENAME string      = "class_diagram"
+	CALL_FILENAME  string      = "call_graph"
 	PERMISSION     os.FileMode = 0644
 )
 
@@ -23,28 +24,58 @@ func main() {
 	store.AddCscope(opts.cscope)
 
 	if !(opts.dep || opts.class || opts.call) {
-		dep, _ := graph.DependencyGraph(store)
-		err := ioutil.WriteFile(DEP_FILENAME, []byte(dep.ToDot()), PERMISSION)
-		if err != nil {
-			panic(err)
-		}
-		class, _ := graph.ClassDiagram(store)
-		err = ioutil.WriteFile(CLASS_FILENAME, []byte(class.ToDot()), PERMISSION)
-		if err != nil {
-			panic(err)
-		}
+            for _, filename := range []string{
+                    DEP_FILENAME,
+                    CLASS_FILENAME,
+                    CALL_FILENAME,
+                } {
+                var g graph.Graph
 
-		return
+                switch filename {
+                case DEP_FILENAME:
+                    g, _ = graph.DependencyGraph(store)
+                case CLASS_FILENAME:
+                    g, _ = graph.ClassDiagram(store)
+                case CALL_FILENAME:
+                }
+
+                var b []byte
+                var ext string
+                switch opts.raw {
+                case true:
+                    b, _ = json.Marshal(g)
+                    ext = ".json"
+                case false:
+                    b = []byte(g.ToDot())
+                    ext = ".dot"
+                }
+		err := ioutil.WriteFile(filename + ext, b, PERMISSION)
+		if err != nil {
+			panic(err)
+		}
+            }
+            return
 	}
+
+        graphs := []graph.Graph{}
 
 	if opts.dep {
 		dep, _ := graph.DependencyGraph(store)
-		fmt.Println(dep.ToDot())
+                graphs = append(graphs, dep)
 	}
 	if opts.class {
 		class, _ := graph.ClassDiagram(store)
-		fmt.Println(class.ToDot())
+                graphs = append(graphs, class)
 	}
+        switch opts.raw {
+        case true:
+            bytes, _ := json.Marshal(graphs)
+            fmt.Println(string(bytes))
+        case false:
+            for _, g := range graphs {
+                fmt.Println(g.ToDot())
+            }
+        }
 
 }
 
