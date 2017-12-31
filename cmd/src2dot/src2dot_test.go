@@ -19,7 +19,7 @@ const (
 )
 
 func TestDotting(t *testing.T) {
-	dirs := getTestDataDirs("../testdata")
+	dirs := getTestDataDirs("../../testdata")
 	for _, dir := range dirs {
 		testDb := db.FromCtags(path.Join(dir, "tags"))
 		testDb.AddCscope(path.Join(dir, "cscope.out"))
