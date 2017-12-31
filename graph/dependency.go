@@ -9,9 +9,9 @@ import (
 
 func DependencyGraph(store db.Database) (Graph, error) {
 	g := Graph{
-		nodes: []Node{},
-		edges: []Edge{},
-		kind:  DEPENDENCY_GRAPH,
+		Nodes: []Node{},
+		Edges: []Edge{},
+		Kind:  DEPENDENCY_GRAPH,
 	}
 
 	for _, ref := range store.GetImports() {
@@ -20,9 +20,9 @@ func DependencyGraph(store db.Database) (Graph, error) {
 		}
 		id := path.Join(ref.Dir(), ref.Filename())
 		g.addNodeIfNotExist(Node{
-			id:       id,
-			label:    id,
-			parentId: ref.Dir(),
+			Id:       id,
+			Label:    id,
+			ParentId: ref.Dir(),
 		})
 
 		files, _ := store.GetImportedFiles(ref)
@@ -30,8 +30,8 @@ func DependencyGraph(store db.Database) (Graph, error) {
 			target, isImported := formatSysImport(ref)
 			if isImported {
 				g.addEdgeIfNotExist(Edge{
-					sourceId: id,
-					targetId: target,
+					SourceId: id,
+					TargetId: target,
 				})
 			}
 			continue
@@ -39,13 +39,13 @@ func DependencyGraph(store db.Database) (Graph, error) {
 		for _, file := range files {
 			fileId := path.Join(file.Dir(), file.Name())
 			g.addNodeIfNotExist(Node{
-				id:       fileId,
-				label:    fileId,
-				parentId: file.Dir(),
+				Id:       fileId,
+				Label:    fileId,
+				ParentId: file.Dir(),
 			})
 			g.addEdgeIfNotExist(Edge{
-				sourceId: id,
-				targetId: fileId,
+				SourceId: id,
+				TargetId: fileId,
 			})
 		}
 	}

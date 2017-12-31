@@ -1,9 +1,9 @@
 package graph
 
 type Node struct {
-	id       string
-	label    string
-	parentId string
+    Id       string `json:"id"`
+    Label    string `json:"label"`
+    ParentId string `json:"parent"`
 }
 
 type EdgeStyle string
@@ -16,9 +16,9 @@ const (
 )
 
 type Edge struct {
-	sourceId string
-	targetId string
-	style    EdgeStyle
+    SourceId string `json:"source"`
+    TargetId string `json:"target"`
+    Style    EdgeStyle      `json:"style"`
 }
 
 type GraphType string
@@ -30,14 +30,14 @@ const (
 )
 
 type Graph struct {
-	nodes []Node
-	edges []Edge
-	kind  GraphType
+    Nodes []Node  `json:"nodes"`
+    Edges []Edge `json:"edges"`
+    Kind  GraphType `json:"kind"`
 }
 
 func (g *Graph) GetNode(id string) (Node, bool) {
-	for _, n := range (*g).nodes {
-		if id == n.id {
+	for _, n := range (*g).Nodes {
+		if id == n.Id {
 			return n, true
 		}
 	}
@@ -45,8 +45,8 @@ func (g *Graph) GetNode(id string) (Node, bool) {
 }
 
 func (g *Graph) GetEdge(sourceId string, targetId string) (Edge, bool) {
-	for _, e := range (*g).edges {
-		if e.sourceId == sourceId && e.targetId == targetId {
+	for _, e := range (*g).Edges {
+		if e.SourceId == sourceId && e.TargetId == targetId {
 			return e, true
 		}
 	}
@@ -54,17 +54,17 @@ func (g *Graph) GetEdge(sourceId string, targetId string) (Edge, bool) {
 }
 
 func (g *Graph) addNodeIfNotExist(n Node) bool {
-	_, found := (*g).GetNode(n.id)
+	_, found := (*g).GetNode(n.Id)
 	if !found {
-		(*g).nodes = append((*g).nodes, n)
+		(*g).Nodes = append((*g).Nodes, n)
 	}
 	return !found
 }
 
 func (g *Graph) addEdgeIfNotExist(e Edge) bool {
-	_, found := (*g).GetEdge(e.sourceId, e.targetId)
+	_, found := (*g).GetEdge(e.SourceId, e.TargetId)
 	if !found {
-		(*g).edges = append((*g).edges, e)
+		(*g).Edges = append((*g).Edges, e)
 	}
 	return !found
 }

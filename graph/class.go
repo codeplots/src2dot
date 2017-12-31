@@ -6,7 +6,7 @@ import (
 
 func ClassDiagram(store db.Database) (Graph, error) {
 	g := Graph{
-		kind: CLASS_DIAGRAM,
+		Kind: CLASS_DIAGRAM,
 	}
 	classes := store.GetClasses()
 	for _, c := range classes {
@@ -32,29 +32,29 @@ func ClassDiagram(store db.Database) (Graph, error) {
 		label += "}"
 
 		g.addNodeIfNotExist(Node{
-			id:    c.Symbol(),
-			label: label,
+			Id:    c.Symbol(),
+			Label: label,
 		})
 
 		for _, p := range store.GetParents(c) {
 			g.addEdgeIfNotExist(Edge{
-				sourceId: c.Symbol(),
-				targetId: p.Symbol(),
-				style:    ARROW,
+				SourceId: c.Symbol(),
+				TargetId: p.Symbol(),
+				Style:    ARROW,
 			})
 		}
 		for _, a := range store.GetAssociates(c) {
 			g.addEdgeIfNotExist(Edge{
-				sourceId: c.Symbol(),
-				targetId: a.Symbol(),
-				style:    LINE,
+				SourceId: c.Symbol(),
+				TargetId: a.Symbol(),
+				Style:    LINE,
 			})
 		}
 		for _, a := range store.GetAggregations(c) {
 			g.addEdgeIfNotExist(Edge{
-				sourceId: a.Symbol(),
-				targetId: c.Symbol(),
-				style:    HOLLOW_DIAMOND,
+				SourceId: a.Symbol(),
+				TargetId: c.Symbol(),
+				Style:    HOLLOW_DIAMOND,
 			})
 		}
 	}
