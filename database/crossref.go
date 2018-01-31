@@ -65,7 +65,9 @@ func (db *Database) GetMembers(ref ClassRef) []MemberRef {
 		case m.dir == ref.dir && m.scope == SCOPE_CLASS_PREFIX+ref.symbol:
 			members = append(members, m)
 		case ref.language == GO:
-			if m.dir == ref.dir && m.scope == SCOPE_STRUCT_PREFIX+ref.symbol {
+			if m.dir == ref.dir &&
+				(m.scope == SCOPE_STRUCT_PREFIX+ref.symbol ||
+					(strings.HasPrefix(m.scope, SCOPE_STRUCT_PREFIX) && strings.HasSuffix(m.scope, ("."+ref.symbol)))) {
 				members = append(members, m)
 			}
 		}
